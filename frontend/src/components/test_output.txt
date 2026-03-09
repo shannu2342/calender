@@ -1,0 +1,4 @@
+    const timePart = cleanTime.replace(/AM|PM|ఉదయం|पूर्वाह्न|रావిలೆ|రాత్రి|రేయి|సాయంత్రం|अपराह्न|വൈകുന്നേരം|పాత్ర|వేళ/gi, "").trim();
+    const match = timePart.match(/(\d{1,2})\s*[:.]\s*(\d{2})/);
+    const timePart = cleanTime.replace(/\bAM\b|\bPM\b/gi, "").trim();
+    const match = timePart.match(/(\d{1,2})\s*[:.]\s*(\d{2})/);

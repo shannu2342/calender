@@ -1,0 +1,126 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Panchang Overlay (Image Based)</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700;800&display=swap" rel="stylesheet" />
+  <style>
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      min-height: 100vh;
+      display: grid;
+      place-items: center;
+      background: #130602;
+      font-family: "Cinzel", serif;
+    }
+
+    .poster {
+      position: relative;
+      width: min(1000px, 96vw);
+      aspect-ratio: 2 / 3;
+      background-image: url("./panchang-bg.jpg");
+      background-size: cover;
+      background-position: center;
+      border-radius: 10px;
+      overflow: hidden;
+      box-shadow: 0 30px 80px rgba(0, 0, 0, 0.6);
+    }
+
+    .overlay {
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
+      top: 18%;
+      width: 64%;
+      color: #f7d195;
+      text-shadow: 0 2px 3px rgba(0, 0, 0, 0.6);
+    }
+
+    .title {
+      margin: 0 0 4.2%;
+      text-align: center;
+      font-size: clamp(1.6rem, 3vw, 2.7rem);
+      font-weight: 700;
+      color: #ffdba1;
+    }
+
+    .row {
+      display: grid;
+      grid-template-columns: 1fr 1.25fr;
+      align-items: baseline;
+      padding: 1.9% 0;
+      border-bottom: 1px solid rgba(245, 190, 105, 0.28);
+      font-size: clamp(1rem, 2vw, 2rem);
+    }
+
+    .row:last-child { border-bottom: none; }
+
+    .key { text-align: right; padding-right: 7%; font-weight: 600; }
+    .val { text-align: left; font-weight: 700; color: #ffebc6; }
+
+    @media (max-width: 700px) {
+      .overlay { width: 70%; top: 17.5%; }
+      .row { grid-template-columns: 1fr 1fr; }
+      .key { padding-right: 5%; }
+    }
+  </style>
+</head>
+<body>
+  <main class="poster">
+    <section class="overlay">
+      <h1 class="title">Today's Panchang</h1>
+
+      <div class="row"><div class="key">Date</div><div class="val" id="dateText"></div></div>
+      <div class="row"><div class="key">Tithi</div><div class="val" id="tithiText"></div></div>
+      <div class="row"><div class="key">Nakshatra</div><div class="val" id="nakshatraText"></div></div>
+      <div class="row"><div class="key">Yoga</div><div class="val" id="yogaText"></div></div>
+      <div class="row"><div class="key">Karana</div><div class="val" id="karanaText"></div></div>
+      <div class="row"><div class="key">Sunrise</div><div class="val" id="sunriseText"></div></div>
+      <div class="row"><div class="key">Sunset</div><div class="val" id="sunsetText"></div></div>
+    </section>
+  </main>
+
+  <script>
+    // Keep this updated daily. Format: YYYY-MM-DD
+    const PANCHANG_BY_DATE = {
+      "2026-03-07": {
+        tithi: "Ekadashi",
+        nakshatra: "Rohini",
+        yoga: "Siddhi",
+        karana: "Bava",
+        sunrise: "6:15 AM",
+        sunset: "6:18 PM"
+      }
+    };
+
+    const fallback = {
+      tithi: "--",
+      nakshatra: "--",
+      yoga: "--",
+      karana: "--",
+      sunrise: "--",
+      sunset: "--"
+    };
+
+    const now = new Date();
+    const key = now.toISOString().slice(0, 10);
+    const data = PANCHANG_BY_DATE[key] || fallback;
+
+    document.getElementById("dateText").textContent = now.toLocaleDateString("en-US", {
+      year: "numeric",
+      month: "long",
+      day: "numeric"
+    });
+    document.getElementById("tithiText").textContent = data.tithi;
+    document.getElementById("nakshatraText").textContent = data.nakshatra;
+    document.getElementById("yogaText").textContent = data.yoga;
+    document.getElementById("karanaText").textContent = data.karana;
+    document.getElementById("sunriseText").textContent = data.sunrise;
+    document.getElementById("sunsetText").textContent = data.sunset;
+  </script>
+</body>
+</html>

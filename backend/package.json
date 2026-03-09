@@ -1,0 +1,32 @@
+{
+  "name": "backend",
+  "version": "1.0.0",
+  "description": "",
+  "type": "module",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js",
+    "dev": "node --watch server.js",
+    "start:pm2": "pm2 start ecosystem.config.cjs",
+    "stop:pm2": "pm2 stop panchang-backend",
+    "logs:pm2": "pm2 logs panchang-backend",
+    "prokerala:verify": "node scripts/verifyProkeralaAuth.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@google/genai": "^1.42.0",
+    "axios": "^1.13.5",
+    "better-sqlite3": "^12.6.2",
+    "cors": "^2.8.6",
+    "dotenv": "^17.2.4",
+    "express": "^5.2.1",
+    "express-rate-limit": "^7.5.0",
+    "groq-sdk": "^0.37.0",
+    "mongoose": "^8.9.5",
+    "node-cron": "^3.0.3",
+    "winston": "^3.17.0"
+  }
+}
